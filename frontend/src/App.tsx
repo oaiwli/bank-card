@@ -10,6 +10,8 @@ import {
   Text,
   CardsContainer,
   Cards,
+  ShowText,
+  BoxText,
   AddCards,
   MainAdd,
   OtherAdd,
@@ -22,35 +24,64 @@ import {
   BackCard,
   StylesPalka,
   BackInfo,
+  Plus,
+  NewCard,
+  NumberInput,
+  DoubleInput,
+  CvvInput,
+  CvvText,
+  HeadCvvText,
 } from "./styles";
 import Checkbox from "@mui/material/Checkbox";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
-import { useState } from "react";
+import useDataStore from "./store/useDataStore";
+import { useState, useEffect } from "react";
 
 function App() {
+  const { cards, setCard, saveData, savedData, fetchData } = useDataStore();
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const [activeNumber, setaActiveNumber] = useState(false);
+  const [activeMouth, setActiveMouth] = useState(false);
+  const [activeYear, setActiveYear] = useState(false);
+  const [activeCvv, setActiveCvv] = useState(false);
+
   const [dramValue, setDramValue] = useState("");
   const [rubValue, setRubValue] = useState("");
   const conversionRate = 15; // 1 ф = 15 руб
 
   const handleDramChange = (e) => {
     const value = e.target.value;
-    setDramValue(value);
-    // Конвертируем в рубли
-    const convertedToRub = value
-      ? (parseFloat(value) * conversionRate).toFixed(2)
-      : "";
-    setRubValue(convertedToRub);
+    // Проверяем ввод на соответствие только цифрам
+    if (/^\d*$/.test(value)) {
+      setDramValue(value);
+      // Конвертируем в рубли
+      const convertedToRub = value
+        ? (parseFloat(value) * conversionRate).toFixed(2)
+        : "";
+      setRubValue(convertedToRub);
+    }
   };
 
   const handleRubChange = (e) => {
     const value = e.target.value;
-    setRubValue(value);
-    // Конвертируем в драмы
-    const convertedToDram = value
-      ? (parseFloat(value) / conversionRate).toFixed(2)
-      : "";
-    setDramValue(convertedToDram);
+    // Проверяем ввод на соответствие только цифрам
+    if (/^\d*$/.test(value)) {
+      setRubValue(value);
+      // Конвертируем в драмы
+      const convertedToDram = value
+        ? (parseFloat(value) / conversionRate).toFixed(2)
+        : "";
+      setDramValue(convertedToDram);
+    }
+  };
+
+  const handleSubmit = () => {
+    saveData();
   };
 
   return (
@@ -73,11 +104,19 @@ function App() {
       </MoneyForm>
 
       <CardsContainer>
-        <Cards></Cards>
-        <Cards></Cards>
+        {savedData.map((card, index) => (
+          <Cards key={index}>
+            <BoxText>
+              <ShowText>• • • • {card.number.slice(-4)}</ShowText>
+              <ShowText>
+                {card.month} / {card.year}
+              </ShowText>
+            </BoxText>
+          </Cards>
+        ))}
         <AddCards>
-          <Text>+</Text>
-          <Text>Новая карта</Text>
+          <Plus>+</Plus>
+          <NewCard>Новая карта</NewCard>
         </AddCards>
       </CardsContainer>
 
@@ -85,13 +124,58 @@ function App() {
         <MainAdd>
           <FaceCard>
             <TextCard>НОМЕР КАРТЫ</TextCard>
-            <Input type="text" placeholder="Номер карты" />
+            <NumberInput
+              type="text"
+              placeholder="Номер карты"
+              value={cards.number}
+              onFocus={() => setaActiveNumber(true)}
+              onBlur={() => setaActiveNumber(false)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                setCard("number", value);
+              }}
+              error={
+                cards.number.length !== 16 &&
+                cards.number.length > 0 &&
+                !activeNumber
+              }
+            />
 
             <TextCard>ДЕЙСТВУЕТ ДО</TextCard>
             <DateCard>
-              <Input type="text" placeholder="мм" />
+              <DoubleInput
+                type="text"
+                placeholder="мм"
+                value={cards.month}
+                onFocus={() => setActiveMouth(true)}
+                onBlur={() => setActiveMouth(false)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  setCard("month", value);
+                }}
+                error={
+                  cards.month.length !== 2 &&
+                  cards.month.length > 0 &&
+                  !activeMouth
+                }
+              />
               <TextCard>/</TextCard>
-              <Input type="text" placeholder="гг" />
+              <DoubleInput
+                type="text"
+                placeholder="гг"
+                value={cards.year}
+                onFocus={() => setActiveYear(true)}
+                onBlur={() => setActiveYear(false)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  setCard("year", value);
+                }}
+                error={
+                  cards.year.length !== 2 &&
+                  cards.year.length > 0 &&
+                  !activeYear
+                }
+              />
             </DateCard>
           </FaceCard>
         </MainAdd>
@@ -100,8 +184,23 @@ function App() {
             <StylesPalka />
             <BackInfo>
               <Text>CVV/CVC</Text>
-              <Input type="text" placeholder="000" />
-              <Text>три цифры с обратной стороны карты</Text>
+              <CvvInput
+                type="text"
+                placeholder="000"
+                value={cards.cvv}
+                onFocus={() => setActiveCvv(true)}
+                onBlur={() => setActiveCvv(false)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  setCard("cvv", value);
+                }}
+                error={
+                  cards.cvv.length !== 3 && cards.cvv.length > 0 && !activeCvv
+                }
+              />
+              <CvvText>три цифры </CvvText>
+              <CvvText>с обратной стороны</CvvText>
+              <CvvText>карты</CvvText>
             </BackInfo>
           </BackCard>
         </OtherAdd>
@@ -121,7 +220,9 @@ function App() {
         </TextColumn>
       </State>
 
-      <Btn type="submit">Оплатить</Btn>
+      <Btn type="submit" onClick={handleSubmit}>
+        Оплатить
+      </Btn>
     </Container>
   );
 }

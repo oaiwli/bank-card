@@ -79,23 +79,6 @@ export const CardsContainer = styled(Box)(({}) => ({
   gap: "16px",
 }));
 
-export const Cards = styled(Box)(({}) => ({
-  width: "110px",
-  height: "75px",
-  borderRadius: "5px",
-  backgroundColor: "#6698fa",
-}));
-
-export const AddCards = styled(Box)(({}) => ({
-  width: "110px",
-  height: "71px",
-  borderRadius: "5px",
-  backgroundColor: "#f2f2f5",
-  border: "2px solid #3e7cfb",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
 export const Form = styled(Box)({
   display: "flex",
   justifyContent: "center",
@@ -105,7 +88,7 @@ export const Form = styled(Box)({
 
 export const OtherAdd = styled(Box)(({}) => ({
   width: "170px",
-  height: "125px",
+  height: "187px",
   borderRadius: "0px 7px 7px 0px",
   backgroundColor: "#ebebf0",
 }));
@@ -134,7 +117,7 @@ export const TextBlue = styled(Typography)({
 
 export const MainAdd = styled(Box)(({}) => ({
   width: "320px",
-  height: "auto",
+  height: "186px",
   borderRadius: "7px",
   backgroundColor: "#3f79de",
   marginBottom: "10px",
@@ -146,6 +129,7 @@ export const FaceCard = styled(Box)({
   flexDirection: "column",
   alignItems: "flex-start",
   width: "100%",
+  marginTop: "23px",
 });
 
 export const DateCard = styled(Box)({
@@ -182,11 +166,10 @@ export const BackCard = styled(Box)({
 });
 
 export const StylesPalka = styled(Box)({
-  width: "96px",
-  height: "auto",
-  borderRadius: "7px",
-  backgroundColor: "#3f79de",
-  marginBottom: "10px",
+  width: "146px",
+  height: "7px",
+  backgroundColor: "#e0e1e8",
+  margin: "20px 0px 10px 0px",
   padding: "10px",
 });
 
@@ -195,4 +178,138 @@ export const BackInfo = styled(Box)({
   flexDirection: "column",
   alignItems: "flex-start",
   width: "100%",
+  marginLeft: "17px",
+});
+
+export const Cards = styled(Box)(({}) => ({
+  width: "110px",
+  height: "75px",
+  borderRadius: "5px",
+  backgroundColor: "#6698fa",
+}));
+
+export const BoxText = styled(Box)(({}) => ({
+  margin: "24px 5px",
+}));
+
+export const ShowText = styled(Typography)({
+  display: "flex",
+  alignItems: "center",
+  marginBottom: "6px",
+  fontSize: "12px",
+  color: "#fff",
+  gap: "4px",
+});
+
+export const AddCards = styled(Box)(({}) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "110px",
+  height: "71px",
+  borderRadius: "5px",
+  backgroundColor: "#f2f2f5",
+  border: "2px solid #3e7cfb",
+}));
+
+export const Plus = styled(Typography)({
+  fontSize: "39px",
+  color: "#7b8795",
+  fontWeight: "100",
+  display: "flex",
+  margin: "-10px",
+});
+
+export const NewCard = styled(Typography)({
+  fontWeight: "500",
+  fontSize: "12px",
+  color: "#555670",
+  display: "flex",
+});
+
+export const NumberInput = styled(TextField)(({ error }) => ({
+  width: "269px",
+  height: "42px",
+  marginBottom: "15px",
+  borderRadius: "16px",
+  backgroundColor: "#fff",
+  "& .MuiOutlinedInput-root": {
+    height: "46px",
+    borderRadius: "16px",
+    "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red",
+    },
+  },
+  "& .MuiInputBase-input": {
+    padding: "10px 14px",
+    borderRadius: "16px",
+    backgroundColor: "#fff",
+    border: "none",
+  },
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderRadius: "16px",
+  },
+}));
+
+export const DoubleInput = styled(TextField)(({ error }) => ({
+  width: "78px",
+  height: "42px",
+  marginBottom: "15px",
+  borderRadius: "16px",
+  backgroundColor: "#fff",
+  "& .MuiOutlinedInput-root": {
+    height: "46px",
+    borderRadius: "16px",
+    "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red",
+    },
+  },
+  "& .MuiInputBase-input": {
+    padding: "10px 14px",
+    borderRadius: "16px",
+    backgroundColor: "#fff",
+    border: "none",
+  },
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderRadius: "16px",
+  },
+}));
+
+export const CvvInput = styled(TextField)(({ error }) => ({
+  width: "62px",
+  height: "42px",
+  marginBottom: "3px",
+  borderRadius: "16px",
+  backgroundColor: "#fff",
+  "& .MuiOutlinedInput-root": {
+    height: "46px",
+    borderRadius: "16px",
+    "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red",
+    },
+  },
+  "& .MuiInputBase-input": {
+    padding: "10px 14px",
+    borderRadius: "16px",
+    backgroundColor: "#fff",
+    border: "none",
+  },
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderRadius: "16px",
+  },
+}));
+
+export const CvvText = styled(Typography)({
+  display: "flex",
+  alignItems: "center",
+  fontSize: "12px",
+  color: "#bdbecb",
+});
+
+export const HeadCvvText = styled(Typography)({
+  display: "flex",
+  alignItems: "center",
+  fontSize: "12px",
+  color: "#727388",
 });
