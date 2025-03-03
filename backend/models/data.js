@@ -6,10 +6,8 @@ const dataSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (v) {
-        return /^[0-9]{16}$/.test(v); // 16 цифр
+        return /^[0-9]{16}$/.test(v);
       },
-      message: (props) =>
-        `${props.value} не является допустимым номером карты. Должно быть 16 цифр.`,
     },
   },
   month: {
@@ -17,10 +15,8 @@ const dataSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (v) {
-        return /^(0[1-9]|1[0-2])$/.test(v); // 2 цифры для месяца от 01 до 12
+        return /^(0[1-9]|1[0-2])$/.test(v);
       },
-      message: (props) =>
-        `${props.value} не является допустимым месяцем. Должно быть 2 цифры от 01 до 12.`,
     },
   },
   year: {
@@ -28,10 +24,8 @@ const dataSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (v) {
-        return /^[0-9]{2}$/.test(v); // 2 цифры для года
+        return /^[0-9]{2}$/.test(v);
       },
-      message: (props) =>
-        `${props.value} не является допустимым годом. Должно быть 2 цифры.`,
     },
   },
   cvv: {
@@ -39,10 +33,8 @@ const dataSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (v) {
-        return /^[0-9]{3}$/.test(v); // 3 цифры для CVV
+        return /^[0-9]{3}$/.test(v);
       },
-      message: (props) =>
-        `${props.value} не является допустимым CVV. Должно быть 3 цифры.`,
     },
   },
 });

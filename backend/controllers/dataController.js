@@ -5,9 +5,9 @@ const saveData = async (req, res) => {
     const { number, month, year, cvv } = req.body;
     const newData = new Data({ number, month, year, cvv });
     await newData.save();
-    res.status(201).json({ message: "Data saved successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error saving data" });
+    res.status(201).json(console.log(newData));
+  } catch (e) {
+    res.status(500).json(console.log(e));
   }
 };
 
@@ -15,8 +15,8 @@ const getData = async (req, res) => {
   try {
     const data = await Data.find({});
     res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching data" });
+  } catch (e) {
+    res.status(500).json(console.log(e));
   }
 };
 
